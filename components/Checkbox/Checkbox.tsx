@@ -5,7 +5,7 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-const Checkbox = ({ name, ...rest }: CheckboxProps) => {
+export const Checkbox = ({ name, ...rest }: CheckboxProps) => {
   return (
     <CheckboxLabel>
       {name}
@@ -14,5 +14,3 @@ const Checkbox = ({ name, ...rest }: CheckboxProps) => {
     </CheckboxLabel>
   );
 };
-
-export default Checkbox;

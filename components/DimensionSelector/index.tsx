@@ -1,5 +1,5 @@
 import React from "react";
-import Checkbox from "@components/Checkbox";
+import { Checkbox } from "@components/Checkbox";
 import { Dimension } from "@common/dimension";
 import { SelectorWrapper } from "./styled";
 

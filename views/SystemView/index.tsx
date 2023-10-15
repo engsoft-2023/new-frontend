@@ -5,7 +5,7 @@ import DimensionSelector from "@components/DimensionSelector";
 import Header from "@components/Header";
 import MetricsWrapper from "@components/MetricsWrapper";
 import useSystem from "@hooks/useSystem";
-import Checkbox from "@components/Checkbox";
+import { Checkbox } from "@components/Checkbox";
 import {
   BackButton,
   Container,
