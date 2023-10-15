@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import Button from "@components/Button";
 import Header from "@components/Header";
 import SystemsList from "@components/SystemsList";
 import useSystems from "@hooks/useSystems";
+import { Button } from "@components/Button";
 import {
   Container,
   LogoWrapper,
@@ -23,7 +23,7 @@ const HomeView = () => {
       <MainContentWrapper>
         <RegisterButtonWrapper>
           <Link href="/systems/register">
-            <Button text={"Register new system"} />
+            <Button>Register new system</Button>
           </Link>
         </RegisterButtonWrapper>
 

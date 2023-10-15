@@ -3,21 +3,18 @@ import { LoadingSpinner, LoadingSpinnerWrapper, StyledButton } from "./styled";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
-  text?: string;
 }
 
-const Button = ({ loading = false, text, ...rest }: ButtonProps) => {
+export const Button = ({ loading = false, children, ...rest }: ButtonProps) => {
   return (
     <StyledButton disabled={loading} {...rest}>
       {loading ? (
         <LoadingSpinnerWrapper>
-          <LoadingSpinner />
+          <LoadingSpinner data-testid="loading-spinner" />
         </LoadingSpinnerWrapper>
       ) : (
-        text
+        children
       )}
     </StyledButton>
   );
 };
-
-export default Button;

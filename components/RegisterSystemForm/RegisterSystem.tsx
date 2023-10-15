@@ -1,4 +1,4 @@
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import {
   RegisterForm,
   RegisterFormFieldset,
@@ -40,7 +40,9 @@ const RegisterSystem = ({ loading, formData, onFormSubmit }: any) => {
         />
       </RegisterFormFieldset>
 
-      <Button type="submit" text={"Register"} loading={loading} />
+      <Button type="submit" loading={loading}>
+        Register
+      </Button>
     </RegisterForm>
   );
 };
