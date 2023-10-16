@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@components/Header";
-import SystemsList from "@components/SystemsList";
 import useSystems from "@hooks/useSystems";
+import { SystemsList } from "@components/SystemsList";
 import { Button } from "@components/Button";
 import {
   Container,
