@@ -1,6 +1,6 @@
-export const Dimension = {
-  SIZE: "size",
-  DATA_COUPLING: "dataCoupling",
-  SYNC_COUPLING: "syncCoupling",
-  ASYNC_COUPLING: "asyncCoupling",
+export enum Dimension {
+  SIZE = "Size",
+  DATA_COUPLING = "Data coupling",
+  SYNC_COUPLING = "Sync coupling",
+  ASYNC_COUPLING = "Async coupling",
 }

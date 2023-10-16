@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import DimensionSelector from "@components/DimensionSelector";
 import Header from "@components/Header";
 import MetricsWrapper from "@components/MetricsWrapper";
 import useSystem from "@hooks/useSystem";
+import { Dimension } from "@common/dimension";
+import { DimensionsSelector } from "@components/DimensionsSelector";
 import { Checkbox } from "@components/Checkbox";
 import {
   BackButton,
@@ -92,7 +93,7 @@ const GraphAndMetrics = ({
 };
 
 const SystemView = () => {
-  const [dimensions, setDimensions] = useState([]);
+  const [dimensions, setDimensions] = useState<Dimension[]>([]);
   const [seeModules, setSeeModules] = useState(false);
   const [showOperations, setShowOperations] = useState(false);
   const router = useRouter();
@@ -107,9 +108,9 @@ const SystemView = () => {
       <MainContentWrapper>
         <PageHeader router={router} title={system.name} />
 
-        <DimensionSelector
+        <DimensionsSelector
           dimensions={dimensions}
-          updateDimensions={setDimensions}
+          onDimensionsChange={setDimensions}
         />
 
         <Checkbox
