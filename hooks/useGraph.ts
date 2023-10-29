@@ -1,22 +1,15 @@
 import ForceGraph from "force-graph";
 import { useEffect, useRef, useState } from "react";
-import {
-  calculateNeighborsByDepth,
-  getAllCombinationsOfGraphData,
-} from "@services/graph_utils";
-import {
-  drawDatabase,
-  drawLinkLabelForDatabaseUsages,
-  drawOperation,
-  drawService,
-} from "@services/graph_elements";
+import { GraphUtils } from "@services/graph/utils";
+import { GraphDesigner } from "@services/graph/designer";
+import { GraphEdge, GraphNode } from "@services/graph/types";
 
 const filterGraphAroundSelectedNode = (
   myGraph: any,
   depth: any,
   clickedNode: any
 ) => {
-  const { allNeighbors, allLinks } = calculateNeighborsByDepth(
+  const { allNeighbors, allLinks } = GraphUtils.calculateNeighborsByDepth(
     clickedNode,
     depth
   );
@@ -59,7 +52,7 @@ const useGraph = ({
   });
 
   useEffect(() => {
-    setAllCombinations(getAllCombinationsOfGraphData(system));
+    setAllCombinations(GraphUtils.getAllCombinationsOfGraphData(system));
   }, [system]);
 
   useEffect(() => {
@@ -98,15 +91,16 @@ const useGraph = ({
       .linkWidth((link: any) => (link.highlighted ? 5 : 1))
       .linkDirectionalParticles(4)
       .linkDirectionalParticleWidth((link: any) => (link.highlighted ? 4 : 0))
-      .nodeCanvasObject((node: any, ctx) => {
+      .nodeCanvasObject((node, ctx) => {
+        const designer = new GraphDesigner(ctx);
         const drawByType: any = {
-          database: () => drawDatabase(node, ctx),
-          operation: () => drawOperation(node, ctx),
-          service: () => drawService(node, ctx),
-          module: () => drawService(node, ctx),
+          database: () => designer.drawDatabase(node as GraphNode),
+          operation: () => designer.drawOperation(node as GraphNode),
+          service: () => designer.drawService(node as GraphNode),
+          module: () => designer.drawService(node as GraphNode),
         };
 
-        drawByType[node.type]();
+        drawByType[(node as GraphNode).type]();
       })
       .onNodeDragEnd((node: any) => {
         if (node.type !== "service" && node.type !== "module") return;
@@ -115,14 +109,17 @@ const useGraph = ({
       })
       .linkCurvature("curvature")
       .linkCanvasObjectMode(() => "after")
-      .linkCanvasObject((link: any, ctx) => {
-        if (link.source.type !== "database" && link.target.type !== "database")
+      .linkCanvasObject((link, ctx) => {
+        const designer = new GraphDesigner(ctx);
+        if (
+          (link as GraphEdge).source.type !== "database" &&
+          (link as GraphEdge).target.type !== "database"
+        )
           return;
 
-        drawLinkLabelForDatabaseUsages(
+        designer.drawLinkLabelForDatabaseUsages(
           myGraph.current.nodeRelSize(),
-          link,
-          ctx
+          link as GraphEdge
         );
       })
       .linkDirectionalArrowLength(6)

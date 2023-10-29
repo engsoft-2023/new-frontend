@@ -1,9 +1,9 @@
-interface Module {
+export interface Module {
   id: string;
   name: string;
 }
 
-interface Service {
+export interface Service {
   id: string;
   name: string;
   responsibility: string;
@@ -11,19 +11,25 @@ interface Service {
   moduleId: string;
 }
 
-interface Database {
+export interface Database {
   id: string;
   model: string;
 }
 
-interface DatabaseUsage {
+export interface DatabaseUsage {
   databaseId: string;
   serviceId: string;
   namespace: string;
   accessType: string;
 }
 
-interface Operation {
+export enum DatabaseAccessType {
+  READ = "Read",
+  WRITE = "Write",
+  READ_AND_WRITE = "ReadWrite",
+}
+
+export interface Operation {
   from: string;
   to: string;
   label: string;
