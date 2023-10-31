@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Header from "@components/Header";
 import MetricsWrapper from "@components/MetricsWrapper";
 import useSystem from "@hooks/useSystem";
-import { Dimension } from "@common/dimension";
 import { DimensionsSelector } from "@components/DimensionsSelector";
 import { Checkbox } from "@components/Checkbox";
 import {
@@ -20,6 +18,7 @@ import {
   PageHeaderWrapper,
   Title,
 } from "./styled";
+import { useSystemViewContext } from "@contexts/SystemViewContext";
 
 const Graph = dynamic(() => import("@components/Graph"), { ssr: false });
 const ImageKey = dynamic(() => import("@components/ImageKey"), {
@@ -38,16 +37,9 @@ const PageHeader = ({ router, title }: any) => {
   );
 };
 
-const GraphAndMetrics = ({
-  system,
-  dimensions,
-  metrics,
-  seeModules,
-  showOperations,
-}: any) => {
-  const [selectedComponents, setSelectedComponents] = useState([]);
-  const [focusedComponent, setFocusedComponent] = useState(null);
-  const [depth, setDepth] = useState(1);
+const GraphAndMetrics = ({ metrics }: any) => {
+  const { selectedElement, setFocusedElement, depthLevel, setDepthLevel } =
+    useSystemViewContext();
 
   return (
     <GraphAndMetricsGrid>
@@ -58,26 +50,17 @@ const GraphAndMetrics = ({
             Depth:
             <GraphDepthControlInput
               type="number"
-              value={depth}
+              value={depthLevel}
               placeholder="Depth"
               onChange={(e) => {
                 const level = parseInt(e.target.value);
 
-                if (level >= 0) setDepth(level);
+                if (level >= 0) setDepthLevel(level);
               }}
             />
           </>
         </GraphDepthControl>
-        <Graph
-          system={system}
-          dimensions={dimensions}
-          selected={selectedComponents}
-          depth={depth}
-          onSelection={setSelectedComponents}
-          seeModules={seeModules}
-          showOperations={showOperations}
-          focusedComponent={focusedComponent}
-        />
+        <Graph />
         <ImageKeyWrapper>
           <ImageKey />
         </ImageKeyWrapper>
@@ -85,17 +68,16 @@ const GraphAndMetrics = ({
 
       <MetricsWrapper
         metrics={metrics}
-        selectedComponents={selectedComponents}
-        onMetricClick={setFocusedComponent}
+        selectedComponent={selectedElement}
+        onMetricClick={setFocusedElement}
       />
     </GraphAndMetricsGrid>
   );
 };
 
 const SystemView = () => {
-  const [dimensions, setDimensions] = useState<Dimension[]>([]);
-  const [seeModules, setSeeModules] = useState(false);
-  const [showOperations, setShowOperations] = useState(false);
+  const { showOperations, setShowOperations, showModules, setShowModules } =
+    useSystemViewContext();
   const router = useRouter();
   const { loading, system, metrics }: any = useSystem(router.query.id);
 
@@ -108,30 +90,21 @@ const SystemView = () => {
       <MainContentWrapper>
         <PageHeader router={router} title={system.name} />
 
-        <DimensionsSelector
-          dimensions={dimensions}
-          onDimensionsChange={setDimensions}
-        />
+        <DimensionsSelector />
 
         <Checkbox
           name="Link synchronous communications through operations"
           checked={showOperations}
-          onChange={() => setShowOperations((previous) => !previous)}
+          onChange={() => setShowOperations(!showOperations)}
         />
 
         <Checkbox
           name="Group services by deployment unit (Modules)"
-          checked={seeModules}
-          onChange={() => setSeeModules((previous) => !previous)}
+          checked={showModules}
+          onChange={() => setShowModules(!showModules)}
         />
 
-        <GraphAndMetrics
-          system={system}
-          dimensions={dimensions}
-          metrics={metrics}
-          seeModules={seeModules}
-          showOperations={showOperations}
-        />
+        <GraphAndMetrics metrics={metrics} />
       </MainContentWrapper>
     </Container>
   );

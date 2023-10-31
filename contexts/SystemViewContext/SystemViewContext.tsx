@@ -11,11 +11,14 @@ import { SystemViewState } from "./types";
 
 const initialState: SystemViewState = {
   selectedDimensions: [],
+  allCombinationsOfData: {},
+  data: { nodes: [], links: [] },
+  filteredData: { nodes: [], links: [] },
   showModules: false,
   showOperations: false,
   depthLevel: 1,
-  selectedElement: { type: "services", name: "" },
-  focusedElement: { type: "services", name: "" },
+  selectedElement: { id: "", type: "services", name: "" },
+  focusedElement: { id: "", type: "services", name: "" },
 };
 
 export const SystemViewContext = createContext<{

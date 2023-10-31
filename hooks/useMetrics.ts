@@ -23,7 +23,7 @@ const splitMetricsIntoGlobalsAndSpecifics = (metrics: any) => {
   const specifics: any = {};
 
   metricsByDimension.forEach((metricsSet) => {
-    Object.entries(metricsSet).forEach(([name, value]: any) => {
+    Object.entries(metricsSet || {}).forEach(([name, value]: any) => {
       const newName = changeMetricName(name);
       const isSpecific =
         typeof value === "object" &&
@@ -41,17 +41,15 @@ const splitMetricsIntoGlobalsAndSpecifics = (metrics: any) => {
 };
 
 const getComponentMetrics = (specifics: any, { name, type }: any) => {
-  const pluralType = type + "s";
-
   return Object.keys(specifics).reduce((acc, metric) => {
-    const componentExists = Object.keys(specifics[metric][pluralType]).find(
+    const componentExists = Object.keys(specifics[metric][type] || {}).find(
       (key) => key === name
     );
 
     if (componentExists) {
       return {
         ...acc,
-        [metric]: specifics[metric][pluralType][name],
+        [metric]: specifics[metric][type][name],
       };
     }
 
@@ -59,17 +57,16 @@ const getComponentMetrics = (specifics: any, { name, type }: any) => {
   }, {});
 };
 
-const useMetrics = (metrics: any, selectedComponents: any) => {
+const useMetrics = (metrics: any, selectedComponent: any) => {
   const { globals, specifics } = splitMetricsIntoGlobalsAndSpecifics(metrics);
-  const specificMetricsBySelectedComponents = selectedComponents.map(
-    ({ name, type }: any) => ({
-      name,
-      type,
-      metrics: getComponentMetrics(specifics, { name, type }),
-    })
-  );
+  const { name, type } = selectedComponent;
+  const specificMetricsBySelectedComponent = {
+    name,
+    type,
+    metrics: getComponentMetrics(specifics, { name, type }),
+  };
 
-  return { globals, specificsByComponent: specificMetricsBySelectedComponents };
+  return { globals, specificsByComponent: specificMetricsBySelectedComponent };
 };
 
 export default useMetrics;

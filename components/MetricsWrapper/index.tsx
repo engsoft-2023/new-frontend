@@ -3,14 +3,10 @@ import useMetrics from "@hooks/useMetrics";
 import DisplayMetrics from "@components/DisplayMetrics";
 import { Metrics, MetricsType, Title } from "./styled";
 
-const MetricsWrapper = ({
-  metrics,
-  selectedComponents,
-  onMetricClick,
-}: any) => {
+const MetricsWrapper = ({ metrics, selectedComponent, onMetricClick }: any) => {
   const { globals, specificsByComponent } = useMetrics(
     metrics,
-    selectedComponents
+    selectedComponent
   );
 
   return (
@@ -18,16 +14,13 @@ const MetricsWrapper = ({
       <Title>Metrics</Title>
       <MetricsType>Global:</MetricsType>
       <DisplayMetrics metrics={globals} onMetricClick={onMetricClick} />
-
-      {specificsByComponent.length > 0 &&
-        specificsByComponent.map(({ name, type, metrics }: any) => (
-          <Fragment key={`${name}+${type}`}>
-            <MetricsType>
-              Metrics of the {type} {name}:
-            </MetricsType>
-            <DisplayMetrics metrics={metrics} />
-          </Fragment>
-        ))}
+      <Fragment>
+        <MetricsType>
+          Metrics of the {specificsByComponent.type} {specificsByComponent.name}
+          :
+        </MetricsType>
+        <DisplayMetrics metrics={specificsByComponent.metrics} />
+      </Fragment>
     </Metrics>
   );
 };

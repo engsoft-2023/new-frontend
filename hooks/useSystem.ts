@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getSystemById, getSystemMetrics } from "@services/system_service";
+import { useSystemViewContext } from "@contexts/SystemViewContext";
 
 const useSystem = (id: any) => {
   const [loading, setLoading] = useState(true);
   const [system, setSystem] = useState({});
   const [metrics, setMetrics] = useState({});
+  const { setAllCombinationsOfData } = useSystemViewContext();
 
   useEffect(() => {
     if (!id) return;
@@ -12,6 +14,7 @@ const useSystem = (id: any) => {
     getSystemById(id)
       .then((sys) => {
         setSystem(sys);
+        setAllCombinationsOfData(sys);
         return getSystemMetrics(id);
       })
       .then((metrics) => setMetrics(metrics))

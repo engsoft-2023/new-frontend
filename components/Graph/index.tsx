@@ -1,26 +1,8 @@
-import useGraph from "@hooks/useGraph";
 import { GraphContainer, GraphWrapper } from "./styled";
+import { useGraph } from "./hook";
 
-const Graph = ({
-  system,
-  dimensions,
-  depth,
-  selected,
-  onSelection,
-  seeModules,
-  showOperations,
-  focusedComponent,
-}: any) => {
-  const graphRef = useGraph({
-    system,
-    dimensions,
-    depth,
-    selected,
-    onSelection,
-    seeModules,
-    showOperations,
-    focusedComponent,
-  });
+const Graph = () => {
+  const graphRef = useGraph();
 
   return (
     <GraphContainer>

@@ -1,12 +1,16 @@
 import React from "react";
 import { Checkbox } from "@components/Checkbox";
 import { useDimensionsSelector } from "./hook";
-import { DimensionsSelectorParams } from "./types";
 import { SelectorWrapper } from "./styled";
+import { useSystemViewContext } from "@contexts/SystemViewContext";
 
-export const DimensionsSelector = (params: DimensionsSelectorParams) => {
+export const DimensionsSelector = () => {
+  const { selectedDimensions, setSelectedDimensions } = useSystemViewContext();
   const { allDimensions, isDimensionSelected, onDimensionSelect } =
-    useDimensionsSelector(params);
+    useDimensionsSelector({
+      dimensions: selectedDimensions || [],
+      onDimensionsChange: setSelectedDimensions,
+    });
 
   return (
     <SelectorWrapper>
