@@ -21,6 +21,7 @@ const customJestConfig = {
     "^@views(.*)$": "<rootDir>/views/$1",
     "^force-graph$": "<rootDir>/node_modules/force-graph/dist/force-graph.js",
   },
+  collectCoverage: true,
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
