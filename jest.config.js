@@ -19,6 +19,7 @@ const customJestConfig = {
     "^@model(.*)$": "<rootDir>/model/$1",
     "^@common(.*)$": "<rootDir>/common/$1",
     "^@views(.*)$": "<rootDir>/views/$1",
+    "^force-graph$": "<rootDir>/node_modules/force-graph/dist/force-graph.js",
   },
 };
 
