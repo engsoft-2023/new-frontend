@@ -3,7 +3,7 @@ import { GraphData } from "@services/graph/types";
 
 export interface Element {
   id?: string;
-  type?: "modules" | "services";
+  type?: "module" | "service";
   name: string;
 }
 

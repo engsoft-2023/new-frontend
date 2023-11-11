@@ -23,7 +23,7 @@ const splitMetricsIntoGlobalsAndSpecifics = (metrics: any) => {
   const specifics: any = {};
 
   metricsByDimension.forEach((metricsSet) => {
-    Object.entries(metricsSet || {}).forEach(([name, value]: any) => {
+    Object.entries(metricsSet).forEach(([name, value]: any) => {
       const newName = changeMetricName(name);
       const isSpecific =
         typeof value === "object" &&
@@ -41,15 +41,17 @@ const splitMetricsIntoGlobalsAndSpecifics = (metrics: any) => {
 };
 
 const getComponentMetrics = (specifics: any, { name, type }: any) => {
+  const pluralType = type + "s";
+
   return Object.keys(specifics).reduce((acc, metric) => {
-    const componentExists = Object.keys(specifics[metric][type] || {}).find(
+    const componentExists = Object.keys(specifics[metric][pluralType]).find(
       (key) => key === name
     );
 
     if (componentExists) {
       return {
         ...acc,
-        [metric]: specifics[metric][type][name],
+        [metric]: specifics[metric][pluralType][name],
       };
     }
 

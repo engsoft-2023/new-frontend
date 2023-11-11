@@ -99,14 +99,14 @@ export class GraphViewModel {
     if (node.type !== "service" && node.type !== "module") return;
 
     if (selectedElement && selectedElement.id === node.id) {
-      onSelectionChange({ id: "", name: "", type: "services" });
+      onSelectionChange({ id: "", name: "", type: "service" });
       return;
     }
 
     if (node) {
       onSelectionChange({
         id: node.id,
-        type: node.type as "services" | "modules",
+        type: node.type as "service" | "module",
         name: node.label,
       });
     }

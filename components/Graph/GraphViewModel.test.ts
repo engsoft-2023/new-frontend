@@ -46,7 +46,7 @@ describe(GraphViewModel, () => {
       const selectedElement: Element = {
         id: "1",
         name: "foo",
-        type: "services",
+        type: "service",
       };
       const expectedNode: GraphNode = {
         id: "1",
@@ -65,7 +65,7 @@ describe(GraphViewModel, () => {
       const selectedElement: Element = {
         id: "1",
         name: "foo",
-        type: "services",
+        type: "service",
       };
 
       const actualNode = graphViewModel.getClickedNode(selectedElement);
@@ -80,7 +80,7 @@ describe(GraphViewModel, () => {
       const focusedElement: Element = {
         id: "1",
         name: "foo",
-        type: "services",
+        type: "service",
       };
       const expectedNode: GraphNode = {
         id: "1",
@@ -99,7 +99,7 @@ describe(GraphViewModel, () => {
       const focusedElement: Element = {
         id: "1",
         name: "foo",
-        type: "services",
+        type: "service",
       };
 
       const actualNode = graphViewModel.getFocusedNode(focusedElement);
@@ -302,7 +302,7 @@ describe(GraphViewModel, () => {
       expect(setSelectedElement).toHaveBeenCalledWith({
         id: "",
         name: "",
-        type: "services",
+        type: "service",
       });
     });
 
@@ -316,7 +316,7 @@ describe(GraphViewModel, () => {
       const selectedElement: Element = {
         id: "2",
         name: "bar",
-        type: "modules",
+        type: "module",
       };
       const setSelectedElement = jest.fn();
 

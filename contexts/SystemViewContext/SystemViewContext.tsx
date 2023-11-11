@@ -17,8 +17,8 @@ const initialState: SystemViewState = {
   showModules: false,
   showOperations: false,
   depthLevel: 1,
-  selectedElement: { id: "", type: "services", name: "" },
-  focusedElement: { id: "", type: "services", name: "" },
+  selectedElement: { id: "", type: "service", name: "" },
+  focusedElement: { id: "", type: "service", name: "" },
 };
 
 export const SystemViewContext = createContext<{
