@@ -1,10 +1,17 @@
+import { Dimension } from "@common/dimension";
+import { GraphData } from "@services/graph/types";
+
 export interface Element {
-  type?: "modules" | "services";
+  id?: string;
+  type?: "module" | "service";
   name: string;
 }
 
 export interface SystemViewState {
-  selectedDimensions?: string[];
+  selectedDimensions?: Dimension[];
+  allCombinationsOfData?: {};
+  data?: GraphData;
+  filteredData?: GraphData;
   showModules?: boolean;
   showOperations?: boolean;
   depthLevel?: number;
@@ -19,4 +26,7 @@ export enum SystemViewActions {
   SET_DEPTH_LEVEL,
   SET_SELECTED_ELEMENT,
   SET_FOCUSED_ELEMENT,
+  SET_ALL_COMBINATIONS_OF_DATA,
+  SET_DATA,
+  SET_FILTERED_DATA,
 }

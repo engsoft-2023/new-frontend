@@ -11,6 +11,21 @@ export const systemViewReducer = (
         ...state,
         selectedDimensions: payload.selectedDimensions,
       };
+    case SystemViewActions.SET_ALL_COMBINATIONS_OF_DATA:
+      return {
+        ...state,
+        allCombinationsOfData: payload.allCombinationsOfData,
+      };
+    case SystemViewActions.SET_DATA:
+      return {
+        ...state,
+        data: payload.data,
+      };
+    case SystemViewActions.SET_FILTERED_DATA:
+      return {
+        ...state,
+        filteredData: payload.filteredData,
+      };
     case SystemViewActions.SET_SHOW_MODULES:
       return {
         ...state,

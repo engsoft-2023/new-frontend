@@ -59,17 +59,16 @@ const getComponentMetrics = (specifics: any, { name, type }: any) => {
   }, {});
 };
 
-const useMetrics = (metrics: any, selectedComponents: any) => {
+const useMetrics = (metrics: any, selectedComponent: any) => {
   const { globals, specifics } = splitMetricsIntoGlobalsAndSpecifics(metrics);
-  const specificMetricsBySelectedComponents = selectedComponents.map(
-    ({ name, type }: any) => ({
-      name,
-      type,
-      metrics: getComponentMetrics(specifics, { name, type }),
-    })
-  );
+  const { name, type } = selectedComponent;
+  const specificMetricsBySelectedComponent = {
+    name,
+    type,
+    metrics: getComponentMetrics(specifics, { name, type }),
+  };
 
-  return { globals, specificsByComponent: specificMetricsBySelectedComponents };
+  return { globals, specificsByComponent: specificMetricsBySelectedComponent };
 };
 
 export default useMetrics;
