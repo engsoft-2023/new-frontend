@@ -45,4 +45,5 @@ export interface System {
   databasesUsages: DatabaseUsage[];
   syncOperations: Operation[];
   asyncOperations: Operation[];
+  error?: string;
 }

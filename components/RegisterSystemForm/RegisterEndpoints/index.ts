@@ -1,0 +1,1 @@
+export { RegisterEndpoints } from "./RegisterEndpoints";
