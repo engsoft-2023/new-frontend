@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { registerSystemEndpoints } from "@services/system_service";
+import { SystemService } from "@services/system_service";
 import { useRouter } from "next/router";
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
+import { isApiError } from "@common/api";
 
 export const useRegisterEndpoints = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ export const useRegisterEndpoints = () => {
     message !== "" && alert(message);
   };
 
-  const registerEndpoints = () => {
+  const registerEndpoints = async () => {
     setLoading(true);
 
     const data = Object.entries(serviceToOpenApiFilename).map(
@@ -26,21 +27,20 @@ export const useRegisterEndpoints = () => {
         openApiFilename: openApiFilename.trim(),
       })
     );
+    const response = await SystemService.registerSystemEndpoints(
+      repositoryUrl,
+      name,
+      data
+    );
 
-    registerSystemEndpoints(repositoryUrl, name, data)
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(false);
-          showMessage("New system has been successfully registered");
-          router.push(`/systems/${name}`);
-        } else {
-          showMessage(response.data.error);
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        showMessage(error.response.data.error);
-      });
+    setLoading(false);
+
+    if (isApiError(response)) {
+      showMessage(response.error);
+    } else {
+      showMessage("New system has been successfully registered");
+      router.push(`/systems/${name}`);
+    }
   };
 
   return {

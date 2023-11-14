@@ -29,6 +29,7 @@ export const RegisterEndpoints = () => {
               OpenAPI filename for service {serviceName}:
             </RegisterFormLabel>
             <RegisterFormInput
+              data-testid={serviceName}
               type="text"
               name={serviceName}
               value={openApiFilename}

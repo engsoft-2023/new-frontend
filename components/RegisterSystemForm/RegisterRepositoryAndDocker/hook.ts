@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { registerNewSystem } from "@services/system_service";
+import { SystemService } from "@services/system_service";
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
+import { ApiError, isApiError } from "@common/api";
+import { System } from "@common/system";
 
 export const useRegisterRepositoryAndDocker = () => {
   const [loading, setLoading] = useState(false);
@@ -18,26 +20,24 @@ export const useRegisterRepositoryAndDocker = () => {
     message !== "" && alert(message);
   };
 
-  const registerSystem = () => {
+  const registerSystem = async () => {
     setLoading(true);
-    registerNewSystem(repositoryUrl, dockerComposeFilename)
-      .then((response) => {
-        setLoading(false);
+    const response = await SystemService.registerNewSystem(
+      repositoryUrl,
+      dockerComposeFilename
+    );
+    setLoading(false);
 
-        if (response.status === 201) {
-          setSystemName(response.data.name);
-          response.data.services.forEach(({ name }) =>
-            setServiceToOpenApiFilename(name, "")
-          );
-          nextRegistrationStep();
-        } else {
-          showMessage(response.data.error || "");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        showMessage(error.response.data.error);
-      });
+    if (isApiError(response)) {
+      showMessage((response as ApiError).error);
+    } else {
+      const system = response as System;
+      setSystemName(system.name);
+      system.services.forEach(({ name }) =>
+        setServiceToOpenApiFilename(name, "")
+      );
+      nextRegistrationStep();
+    }
   };
 
   return {

@@ -29,6 +29,7 @@ export const RegisterRepositoryAndDocker = () => {
           Repository URL:
         </RegisterFormLabel>
         <RegisterFormInput
+          data-testid="repository_url"
           type="text"
           name="repository_url"
           value={repositoryUrl}
@@ -41,6 +42,7 @@ export const RegisterRepositoryAndDocker = () => {
           Docker-Compose filename:
         </RegisterFormLabel>
         <RegisterFormInput
+          data-testid="docker_compose_filename"
           type="text"
           name="docker_compose_filename"
           value={dockerComposeFilename}
