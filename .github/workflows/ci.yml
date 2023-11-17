@@ -55,16 +55,21 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Get Event Payload
+      id: get_payload
+      run: echo "::set-output name=payload::$(curl -sSL $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID | jq -r .event)"
+
     - name: Get Branch Name
-      run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+      id: branch_name
+      run: echo "::set-output name=branch::$(echo ${{ steps.get_payload.outputs.payload }} | jq -r .ref | sed 's/refs\/heads\///')"
 
     - name: Display Branch Name
       run: |
-        echo "Branch Name: $BRANCH_NAME "
+        echo "Branch Name: ${{ steps.branch_name.outputs.branch }}"
 
     - name: Set Current Branch as Output Value
       id: current_branch_name
-      run: echo "current_branch=$BRANCH_NAME" >> $GITHUB_ENV
+      run: echo "current_branch=${{ steps.branch_name.outputs.branch }}" >> $GITHUB_ENV
 
   open-pr-to-develop:
 
