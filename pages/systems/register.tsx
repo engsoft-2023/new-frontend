@@ -1,4 +1,4 @@
-import RegisterSystemView from "@views/RegisterSystemView";
+import RegisterSystemView from "@views/RegisterSystemView/RegisterSystemView";
 
 const RegisterSystemPage = () => <RegisterSystemView />;
 

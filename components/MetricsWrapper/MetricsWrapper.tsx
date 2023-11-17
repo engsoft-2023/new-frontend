@@ -1,9 +1,13 @@
 import { Fragment } from "react";
-import useMetrics from "@hooks/useMetrics";
-import DisplayMetrics from "@components/DisplayMetrics";
+import { useMetrics } from "./hook";
+import { DisplayMetrics } from "@components/DisplayMetrics";
 import { Metrics, MetricsType, Title } from "./styled";
 
-const MetricsWrapper = ({ metrics, selectedComponent, onMetricClick }: any) => {
+export const MetricsWrapper = ({
+  metrics,
+  selectedComponent,
+  onMetricClick,
+}: any) => {
   const { globals, specificsByComponent } = useMetrics(
     metrics,
     selectedComponent
@@ -24,5 +28,3 @@ const MetricsWrapper = ({ metrics, selectedComponent, onMetricClick }: any) => {
     </Metrics>
   );
 };
-
-export default MetricsWrapper;

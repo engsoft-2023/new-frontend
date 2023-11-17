@@ -1,10 +1,10 @@
 import Header from "@components/Header";
 import RegisterSystem from "@components/RegisterSystemForm/RegisterSystem";
 import RegisterEndpoints from "@components/RegisterSystemForm/RegisterEndpoints";
-import useRegisterSystem from "@hooks/useRegisterSystem";
+import useRegisterSystem from "./hook";
 import { Container, MainContentWrapper, Title } from "./styled";
 
-const RegisterSystemView = () => {
+export const RegisterSystemView = () => {
   const {
     loading,
     registerSystem,
@@ -69,5 +69,3 @@ const RegisterSystemView = () => {
     </Container>
   );
 };
-
-export default RegisterSystemView;

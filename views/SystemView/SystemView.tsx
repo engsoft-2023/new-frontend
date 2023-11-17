@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Header from "@components/Header";
-import MetricsWrapper from "@components/MetricsWrapper";
-import useSystem from "@hooks/useSystem";
+import { MetricsWrapper } from "@components/MetricsWrapper";
+import useSystem from "./hook";
 import { DimensionsSelector } from "@components/DimensionsSelector";
 import { Checkbox } from "@components/Checkbox";
 import {
@@ -21,7 +21,7 @@ import {
 import { useSystemViewContext } from "@contexts/SystemViewContext";
 
 const Graph = dynamic(() => import("@components/Graph"), { ssr: false });
-const ImageKey = dynamic(() => import("@components/ImageKey"), {
+const ImageKey = dynamic(() => import("@components/ImageKey/ImageKey"), {
   ssr: false,
 });
 
@@ -75,7 +75,7 @@ const GraphAndMetrics = ({ metrics }: any) => {
   );
 };
 
-const SystemView = () => {
+export const SystemView = () => {
   const { showOperations, setShowOperations, showModules, setShowModules } =
     useSystemViewContext();
   const router = useRouter();
@@ -110,4 +110,3 @@ const SystemView = () => {
   );
 };
 
-export default SystemView;

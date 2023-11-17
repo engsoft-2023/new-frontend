@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllSystems } from "@services/system_service";
 
-const useSystems = () => {
+export const useSystems = () => {
   const [allSystems, setAllSystems] = useState([]);
   const [filteredSystems, setFilteredSystems] = useState(allSystems);
   const [loading, setLoading] = useState(true);
@@ -27,5 +27,3 @@ const useSystems = () => {
 
   return { loading, systems: filteredSystems, onSearch: searchSystem };
 };
-
-export default useSystems;
