@@ -7,7 +7,9 @@ on:
       - 'refactor/*'
 
 jobs:
+
   test-typescript:
+
     name: TypeScript Tests
     runs-on: ubuntu-latest
 
@@ -39,21 +41,36 @@ jobs:
         id: npm-test
         run: npm test
 
-  test-action:
-    name: GitHub Actions Test
+  get-branch-name:
+
+    name: Get Branch Name
     runs-on: ubuntu-latest
+    outputs:
+      current-branch: ${{ steps.current_branch_name.outputs.current_branch}}
 
     steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Test Local Action
-        id: test-action
-        uses: ./
-        # with:
-        #   milliseconds: 1000
+    - name: Get Branch Name
+      run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+    - name: Display Branch Name
+      run: |
+        echo "Branch Name: $BRANCH_NAME "
+
+    - name: Set Current Branch as Output Value
+      id: current_branch_name
+      run: echo "current_branch=$BRANCH_NAME" >> $GITHUB_ENV
+
+  open-pr-to-develop:
+
+    name: Open PR To Develop
+    needs: 
+      - test-typescript
+      - get-branch-name
+    uses: ./.github/workflows/pr-to-next-branch.yml
+    with:
+      source-branch: ${{ needs.get-branch-name.outputs.current_branch }}
+      target-branch: develop
+

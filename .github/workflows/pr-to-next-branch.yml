@@ -1,0 +1,27 @@
+name: Create Pull Request To The Next Branch
+
+on:
+  workflow_call:
+    inputs:
+      source-branch:
+        required: true
+        type: string
+      target-branch:
+        required: true
+        type: string
+
+jobs:
+  action-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Create pull request
+        uses: devops-infra/action-pull-request@v0.5.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          title: Automatic pull request
+          source_branch: ${{ inputs.source-branch }}
+          target_branch: ${{ inputs.target-branch }}
