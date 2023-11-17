@@ -45,6 +45,9 @@ jobs:
 
     name: Get Branch Name
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+  
     outputs:
       current-branch: ${{ steps.current_branch_name.outputs.current_branch}}
 
