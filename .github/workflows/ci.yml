@@ -41,36 +41,6 @@ jobs:
         id: npm-test
         run: npm test
 
-  get-branch-name:
-
-    name: Get Branch Name
-    runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-  
-    outputs:
-      current-branch: ${{ steps.current_branch_name.outputs.current_branch}}
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Get Event Payload
-      id: get_payload
-      run: echo "::set-output name=payload::$(curl -sSL $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID | jq -r .event)"
-
-    - name: Get Branch Name
-      id: branch_name
-      run: echo "::set-output name=branch::$(echo ${{ steps.get_payload.outputs.payload }} | jq -r .ref | sed 's/refs\/heads\///')"
-
-    - name: Display Branch Name
-      run: |
-        echo "Branch Name: ${{ steps.branch_name.outputs.branch }}"
-
-    - name: Set Current Branch as Output Value
-      id: current_branch_name
-      run: echo "current_branch=${{ steps.branch_name.outputs.branch }}" >> $GITHUB_ENV
-
   open-pr-to-develop:
 
     name: Open PR To Develop
@@ -80,4 +50,14 @@ jobs:
     with:
       source-branch: ${{ github.ref_name }}
       target-branch: develop
+
+  open-pr-to-main:
+
+    name: Open PR To Main
+    needs:
+      - open-pr-to-develop
+    uses: ./.github/workflows/pr-to-next-branch.yml
+    with:
+      source-branch: develop
+      target-branch: main
 
