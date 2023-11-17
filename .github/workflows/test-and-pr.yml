@@ -1,0 +1,10 @@
+name: Run Tests
+run-name: Run tests of each component
+on: [push]
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+            npm test
+      - run: echo "Tests finished :)"
