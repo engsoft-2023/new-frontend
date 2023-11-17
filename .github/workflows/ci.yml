@@ -76,9 +76,8 @@ jobs:
     name: Open PR To Develop
     needs: 
       - test-typescript
-      - get-branch-name
     uses: ./.github/workflows/pr-to-next-branch.yml
     with:
-      source-branch: ${{ needs.get-branch-name.outputs.current_branch }}
+      source-branch: ${{ github.ref_name }}
       target-branch: develop
 
