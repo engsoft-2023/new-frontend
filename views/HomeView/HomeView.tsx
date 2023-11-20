@@ -39,6 +39,7 @@ export const HomeView = () => {
         <Title>Welcome to Sorting Hat!</Title>
 
         <SearchInput
+          data-testid="search-input"
           type="text"
           placeholder="Search..."
           onChange={(e) => onSearch(e.target.value)}
