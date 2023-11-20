@@ -2,7 +2,7 @@ import Header from "@components/Header";
 import { Container, MainContentWrapper, Title } from "./styled";
 import { useRegisterSystemView } from "./hook";
 
-const RegisterSystemView = () => {
+export const RegisterSystemView = () => {
   const { CurrentComponent, pageTitle } = useRegisterSystemView();
 
   return (
@@ -17,5 +17,3 @@ const RegisterSystemView = () => {
     </Container>
   );
 };
-
-export default RegisterSystemView;

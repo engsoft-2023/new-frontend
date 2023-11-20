@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@components/Header";
-import useSystems from "@hooks/useSystems";
+import { useSystems } from "./hook";
 import { SystemsList } from "@components/SystemsList";
 import { Button } from "@components/Button";
 import {
@@ -13,7 +13,7 @@ import {
   Title,
 } from "./styled";
 
-const HomeView = () => {
+export const HomeView = () => {
   const { loading, systems, onSearch } = useSystems();
 
   return (
@@ -49,5 +49,3 @@ const HomeView = () => {
     </Container>
   );
 };
-
-export default HomeView;
