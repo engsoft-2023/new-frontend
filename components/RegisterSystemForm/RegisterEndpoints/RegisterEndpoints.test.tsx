@@ -1,5 +1,5 @@
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
-import { SystemService } from "@services/system_service";
+import { SystemService } from "@services/system";
 import {
   act,
   fireEvent,
@@ -52,7 +52,7 @@ describe(RegisterEndpoints, () => {
   it("should successfully register system endpoints", async () => {
     const router = useRouter();
     const { name, repositoryUrl } = useSystemRegistrationContext();
-    jest.spyOn(SystemService, "registerSystemEndpoints").mockResolvedValue({});
+    jest.spyOn(SystemService, "registerSystemEndpoints").mockResolvedValue("");
     global.alert = jest.fn();
 
     render(<RegisterEndpoints />);

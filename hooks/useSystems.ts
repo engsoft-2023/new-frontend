@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getAllSystems } from "@services/system_service";
+import { SystemService } from "@services/system";
+import { System } from "@common/system";
 
 const useSystems = () => {
-  const [allSystems, setAllSystems] = useState([]);
-  const [filteredSystems, setFilteredSystems] = useState(allSystems);
+  const [allSystems, setAllSystems] = useState<System[]>([]);
+  const [filteredSystems, setFilteredSystems] = useState<System[]>(allSystems);
   const [loading, setLoading] = useState(true);
 
   const searchSystem = (query: string) => {
@@ -17,10 +18,10 @@ const useSystems = () => {
   };
 
   useEffect(() => {
-    getAllSystems()
+    SystemService.getAllSystems()
       .then((systems) => {
-        setAllSystems(systems);
-        setFilteredSystems(systems);
+        setAllSystems(systems as System[]);
+        setFilteredSystems(systems as System[]);
       })
       .finally(() => setLoading(false));
   }, []);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SystemService } from "@services/system_service";
+import { SystemService } from "@services/system";
 import { useRouter } from "next/router";
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
 import { isApiError } from "@common/api";

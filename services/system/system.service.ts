@@ -30,7 +30,7 @@ export class SystemService {
     systemName: string,
     servicesAndOpenApiFilenames: any
   ) {
-    return this.handleRequest(() =>
+    return this.handleRequest<string>(() =>
       api.put(`/systems/${systemName}/endpoints`, {
         repoUrl,
         servicesAndOpenApiFilenames,

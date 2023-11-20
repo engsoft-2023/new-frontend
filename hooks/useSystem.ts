@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getSystemById, getSystemMetrics } from "@services/system_service";
 import { useSystemViewContext } from "@contexts/SystemViewContext";
+import { SystemService } from "@services/system";
+import { System } from "@common/system";
 
 const useSystem = (id: any) => {
   const [loading, setLoading] = useState(true);
@@ -11,11 +12,11 @@ const useSystem = (id: any) => {
   useEffect(() => {
     if (!id) return;
 
-    getSystemById(id)
+    SystemService.getSystemById(id)
       .then((sys) => {
         setSystem(sys);
-        setAllCombinationsOfData(sys);
-        return getSystemMetrics(id);
+        setAllCombinationsOfData(sys as System);
+        return SystemService.getSystemMetrics(id);
       })
       .then((metrics) => setMetrics(metrics))
       .finally(() => setLoading(false));

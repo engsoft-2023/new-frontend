@@ -1,5 +1,3 @@
-import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
-import { RegisterRepositoryAndDocker } from "./RegisterRepositoryAndDocker";
 import {
   act,
   fireEvent,
@@ -7,7 +5,9 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { SystemService } from "@services/system_service";
+import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
+import { SystemService } from "@services/system";
+import { RegisterRepositoryAndDocker } from "./RegisterRepositoryAndDocker";
 
 jest.mock("@contexts/SystemRegistrationContext/hook");
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SystemService } from "@services/system_service";
+import { SystemService } from "@services/system";
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
 import { ApiError, isApiError } from "@common/api";
 import { System } from "@common/system";
