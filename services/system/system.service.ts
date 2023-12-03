@@ -1,4 +1,5 @@
 import { ApiError } from "@common/api";
+import { CharM } from "@common/metrics";
 import { System } from "@common/system";
 import { api } from "@services/axios";
 import { AxiosError, AxiosResponse } from "axios";
@@ -13,7 +14,7 @@ export class SystemService {
   }
 
   public static async getSystemMetrics(id: string) {
-    return this.handleRequest(() => api.get(`/systems/${id}/metrics`));
+    return this.handleRequest<CharM>(() => api.get(`/systems/${id}/metrics`));
   }
 
   public static async registerNewSystem(repoUrl: string, filename: string) {

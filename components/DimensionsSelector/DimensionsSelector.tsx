@@ -8,7 +8,7 @@ export const DimensionsSelector = () => {
   const { selectedDimensions, setSelectedDimensions } = useSystemViewContext();
   const { allDimensions, isDimensionSelected, onDimensionSelect } =
     useDimensionsSelector({
-      dimensions: selectedDimensions || [],
+      dimensions: selectedDimensions!,
       onDimensionsChange: setSelectedDimensions,
     });
 

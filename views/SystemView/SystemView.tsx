@@ -1,10 +1,12 @@
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import Header from "@components/Header";
+import { NextRouter, useRouter } from "next/router";
+import { Header } from "@components/Header";
+import { CharM } from "@common/metrics";
 import { MetricsWrapper } from "@components/MetricsWrapper";
-import useSystem from "./hook";
+import { useSystem } from "./hook";
 import { DimensionsSelector } from "@components/DimensionsSelector";
 import { Checkbox } from "@components/Checkbox";
+import { useSystemViewContext } from "@contexts/SystemViewContext";
 import {
   BackButton,
   Container,
@@ -12,23 +14,33 @@ import {
   GraphAndMetricsGrid,
   GraphDepthControl,
   GraphDepthControlInput,
+  GraphDepthControlInputWrapper,
   ImageKeyWrapper,
   LoadingContainer,
   MainContentWrapper,
   PageHeaderWrapper,
   Title,
 } from "./styled";
-import { useSystemViewContext } from "@contexts/SystemViewContext";
 
 const Graph = dynamic(() => import("@components/Graph"), { ssr: false });
 const ImageKey = dynamic(() => import("@components/ImageKey/ImageKey"), {
   ssr: false,
 });
 
-const PageHeader = ({ router, title }: any) => {
+const PageHeader = ({
+  router,
+  title,
+}: {
+  router: NextRouter;
+  title: string;
+}) => {
   return (
     <PageHeaderWrapper>
-      <BackButton type="button" onClick={() => router.back()}>
+      <BackButton
+        data-testid="back-button"
+        type="button"
+        onClick={() => router.back()}
+      >
         &larr;
       </BackButton>
 
@@ -37,18 +49,18 @@ const PageHeader = ({ router, title }: any) => {
   );
 };
 
-const GraphAndMetrics = ({ metrics }: any) => {
-  const { selectedElement, setFocusedElement, depthLevel, setDepthLevel } =
-    useSystemViewContext();
+const GraphAndMetrics = ({ metrics }: { metrics: CharM }) => {
+  const { depthLevel, setDepthLevel } = useSystemViewContext();
 
   return (
     <GraphAndMetricsGrid>
       <GraphAndImageKeyWrapper>
         <GraphDepthControl>
           Click on a service and type a depth level you want to see.
-          <>
+          <GraphDepthControlInputWrapper>
             Depth:
             <GraphDepthControlInput
+              data-testid="depth-level-input"
               type="number"
               value={depthLevel}
               placeholder="Depth"
@@ -58,7 +70,7 @@ const GraphAndMetrics = ({ metrics }: any) => {
                 if (level >= 0) setDepthLevel(level);
               }}
             />
-          </>
+          </GraphDepthControlInputWrapper>
         </GraphDepthControl>
         <Graph />
         <ImageKeyWrapper>
@@ -66,11 +78,7 @@ const GraphAndMetrics = ({ metrics }: any) => {
         </ImageKeyWrapper>
       </GraphAndImageKeyWrapper>
 
-      <MetricsWrapper
-        metrics={metrics}
-        selectedComponent={selectedElement}
-        onMetricClick={setFocusedElement}
-      />
+      <MetricsWrapper charM={metrics} />
     </GraphAndMetricsGrid>
   );
 };
@@ -79,7 +87,7 @@ export const SystemView = () => {
   const { showOperations, setShowOperations, showModules, setShowModules } =
     useSystemViewContext();
   const router = useRouter();
-  const { loading, system, metrics }: any = useSystem(router.query.id);
+  const { loading, system, metrics } = useSystem(router.query.id as string);
 
   if (loading) return <LoadingContainer>Loading...</LoadingContainer>;
 
@@ -93,12 +101,14 @@ export const SystemView = () => {
         <DimensionsSelector />
 
         <Checkbox
+          data-testid="show-operations"
           name="Link synchronous communications through operations"
           checked={showOperations}
           onChange={() => setShowOperations(!showOperations)}
         />
 
         <Checkbox
+          data-testid="show-modules"
           name="Group services by deployment unit (Modules)"
           checked={showModules}
           onChange={() => setShowModules(!showModules)}
@@ -109,4 +119,3 @@ export const SystemView = () => {
     </Container>
   );
 };
-

@@ -18,11 +18,21 @@ describe("DimensionsSelector", () => {
 
     render(<DimensionsSelector />);
 
-    fireEvent.click(screen.getByText("Size"));
+    fireEvent.click(screen.getByText(Dimension.SIZE));
 
     expect(setSelectedDimensions).toHaveBeenCalledWith([
       Dimension.SIZE,
       Dimension.DATA_COUPLING,
     ]);
+  });
+
+  it("should unselect a dimension", () => {
+    const { setSelectedDimensions } = useSystemViewContext();
+
+    render(<DimensionsSelector />);
+
+    fireEvent.click(screen.getByText(Dimension.DATA_COUPLING));
+
+    expect(setSelectedDimensions).toHaveBeenCalledWith([]);
   });
 });

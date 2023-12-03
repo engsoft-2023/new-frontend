@@ -1,4 +1,5 @@
 import { System } from "@common/system";
+import { Dimension } from "@common/dimension";
 import { GraphEdge, GraphNode } from "./types";
 import { GraphUtils } from "./utils";
 
@@ -47,21 +48,21 @@ describe(GraphUtils, () => {
     };
     const expectedKeys = [
       "",
-      "Size",
-      "Data coupling",
-      "Sync coupling",
-      "Async coupling",
-      "Size,Data coupling",
-      "Size,Sync coupling",
-      "Size,Async coupling",
-      "Data coupling,Sync coupling",
-      "Data coupling,Async coupling",
-      "Sync coupling,Async coupling",
-      "Size,Data coupling,Sync coupling",
-      "Size,Data coupling,Async coupling",
-      "Size,Sync coupling,Async coupling",
-      "Data coupling,Sync coupling,Async coupling",
-      "Size,Data coupling,Sync coupling,Async coupling",
+      `${Dimension.SIZE}`,
+      `${Dimension.DATA_COUPLING}`,
+      `${Dimension.SYNC_COUPLING}`,
+      `${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.DATA_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.SYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.DATA_COUPLING},${Dimension.SYNC_COUPLING}`,
+      `${Dimension.DATA_COUPLING},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.SYNC_COUPLING},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.DATA_COUPLING},${Dimension.SYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.DATA_COUPLING},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.SYNC_COUPLING},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.DATA_COUPLING},${Dimension.SYNC_COUPLING},${Dimension.ASYNC_COUPLING}`,
+      `${Dimension.SIZE},${Dimension.DATA_COUPLING},${Dimension.SYNC_COUPLING},${Dimension.ASYNC_COUPLING}`,
     ];
     const expectedCombination = {
       forModules: {

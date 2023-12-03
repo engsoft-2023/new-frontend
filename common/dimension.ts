@@ -1,6 +1,6 @@
 export enum Dimension {
   SIZE = "Size",
-  DATA_COUPLING = "Data coupling",
-  SYNC_COUPLING = "Sync coupling",
-  ASYNC_COUPLING = "Async coupling",
+  DATA_COUPLING = "Data source coupling",
+  SYNC_COUPLING = "Synchronous coupling",
+  ASYNC_COUPLING = "Asynchronous coupling",
 }

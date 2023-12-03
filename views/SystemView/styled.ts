@@ -73,4 +73,8 @@ export const GraphDepthControl = styled.div`
   justify-content: space-between;
 `;
 
-export const GraphDepthControlInput = styled.input``;
+export const GraphDepthControlInputWrapper = styled.div``;
+
+export const GraphDepthControlInput = styled.input`
+  margin-left: 1rem;
+`;

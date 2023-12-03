@@ -1,4 +1,4 @@
-import Header from "@components/Header";
+import { Header } from "@components/Header";
 import { Container, MainContentWrapper, Title } from "./styled";
 import { useRegisterSystemView } from "./hook";
 

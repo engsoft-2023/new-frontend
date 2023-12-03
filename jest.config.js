@@ -22,6 +22,10 @@ const customJestConfig = {
     "^force-graph$": "<rootDir>/node_modules/force-graph/dist/force-graph.js",
   },
   collectCoverage: true,
+  coveragePathIgnorePatterns: [
+    "<rootDir>/contexts",
+    "<rootDir>/services/graph/designer.ts",
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
