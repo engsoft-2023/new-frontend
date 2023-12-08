@@ -1,4 +1,6 @@
+import { Dimension } from "@common/dimension";
 import { Element, SystemViewActions, SystemViewState } from "./types";
+import { GraphData } from "@services/graph/types";
 
 export interface SystemViewAction {
   type: SystemViewActions;
@@ -6,10 +8,29 @@ export interface SystemViewAction {
 }
 
 export const setSelectedDimensionsAction = (
-  dimensions: string[]
+  dimensions: Dimension[]
 ): SystemViewAction => ({
   type: SystemViewActions.SET_DIMENSIONS,
   payload: { selectedDimensions: dimensions },
+});
+
+export const setAllCombinationsOfDataAction = (
+  allCombinationsOfData: any
+): SystemViewAction => ({
+  type: SystemViewActions.SET_ALL_COMBINATIONS_OF_DATA,
+  payload: { allCombinationsOfData },
+});
+
+export const setDataAction = (data: GraphData): SystemViewAction => ({
+  type: SystemViewActions.SET_DATA,
+  payload: { data },
+});
+
+export const setFilteredDataAction = (
+  filteredData: GraphData
+): SystemViewAction => ({
+  type: SystemViewActions.SET_FILTERED_DATA,
+  payload: { filteredData },
 });
 
 export const setShowModulesAction = (

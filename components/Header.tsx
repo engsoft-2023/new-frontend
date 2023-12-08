@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const Header = ({
+export const Header = ({
   title,
   description = "A tool to characterize the architecture of service-based systems",
 }: any) => {
@@ -12,5 +12,3 @@ const Header = ({
     </Head>
   );
 };
-
-export default Header;

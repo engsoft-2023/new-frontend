@@ -1,0 +1,1 @@
+export { RegisterRepositoryAndDocker } from "./RegisterRepositoryAndDocker";
