@@ -12,6 +12,7 @@ export const useRegisterEndpoints = () => {
     repositoryUrl,
     serviceToOpenApiFilename,
     setServiceToOpenApiFilename,
+    nextRegistrationStep,
   } = useSystemRegistrationContext();
 
   const showMessage = (message: string) => {
@@ -38,8 +39,7 @@ export const useRegisterEndpoints = () => {
     if (isApiError(response)) {
       showMessage(response.error);
     } else {
-      showMessage("New system has been successfully registered");
-      router.push(`/systems/${name}`);
+      nextRegistrationStep();
     }
   };
 
