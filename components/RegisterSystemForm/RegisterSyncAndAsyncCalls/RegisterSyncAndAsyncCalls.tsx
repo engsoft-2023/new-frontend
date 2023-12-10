@@ -1,52 +1,30 @@
-import { Button } from "@components/Button";
-import {
-  RegisterForm,
-  RegisterFormFieldset,
-  RegisterFormInput,
-  RegisterFormLabel,
-} from "../styled";
-// import { useRegisterEndpoints } from "./hook";
+import * as React from 'react';
+import { useState, ChangeEvent } from 'react';
+import { SelectBox } from "@components/SelectBox";
+
+import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
 
 export const RegisterSyncAndAsyncCalls = () => {
-  // const {
-  //   loading,
-  //   serviceToOpenApiFilename,
-  //   setServiceToOpenApiFilename,
-  //   registerEndpoints,
-  // } = useRegisterEndpoints();
 
-  // return (
-  //   <RegisterForm
-  //     onSubmit={(e) => {
-  //       e.preventDefault();
-  //       registerEndpoints();
-  //     }}
-  //   >
-  //     {Object.entries(serviceToOpenApiFilename).map(
-  //       ([serviceName, openApiFilename]) => (
-  //         <RegisterFormFieldset key={serviceName}>
-  //           <RegisterFormLabel htmlFor={serviceName}>
-  //             OpenAPI filename for service {serviceName}:
-  //           </RegisterFormLabel>
-  //           <RegisterFormInput
-  //             data-testid={serviceName}
-  //             type="text"
-  //             name={serviceName}
-  //             value={openApiFilename}
-  //             onChange={(event) =>
-  //               setServiceToOpenApiFilename(serviceName, event.target.value)
-  //             }
-  //           />
-  //         </RegisterFormFieldset>
-  //       )
-  //     )}
+  const {
+    name,
+    repositoryUrl,
+    serviceToOpenApiFilename,
+    setServiceToOpenApiFilename,
+    nextRegistrationStep,
+  } = useSystemRegistrationContext();
 
-  //     <Button type="submit" loading={loading}>
-  //       Register endpoints
-  //     </Button>
-  //   </RegisterForm>
-  // );
+  const services: string[] = Object.keys(serviceToOpenApiFilename);
+
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
+  const handleSelectChange = (option: string) => {
+    setSelectedOption(option);
+  };
+
   return (
-    <p>Futura pagina de registrar relações sync e async de serviços</p>
+      <SelectBox 
+        options={services} 
+        onSelectChange={handleSelectChange}>
+      </SelectBox>
   )
 };
