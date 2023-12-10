@@ -32,6 +32,15 @@ export const setServiceToOpenApiFilenameAction = (
   payload: { serviceName, openApiFilename },
 });
 
+export const setServiceToSyncAndAsyncOperationsAction = (
+  serviceName: string,
+  syncAndAsyncOperations: {}
+): SystemAction => ({
+  type: SystemActions.SET_SERVICE_TO_SYNC_AND_ASYNC_OPERATIONS,
+  payload: { serviceName, syncAndAsyncOperations },
+});
+
+
 export const nextRegistrationStepAction = (): SystemAction => ({
   type: SystemActions.NEXT_REGISTRATION_STEP,
   payload: {},

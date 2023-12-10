@@ -20,7 +20,6 @@ export const SelectBox: React.FC<SelectBoxProps> = ({ options, onSelectChange })
 
   return (
   <div>
-    <p>Choose a service:</p>
     <SelectBoxStyle id="selectBox" value={selectedOption} onChange={handleSelectChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
