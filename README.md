@@ -63,7 +63,7 @@ Existem ainda outras opções disponíveis. Caso queira ver quais são as opera�
 
 É possível ainda clicar em um dos serviços da visualização. Quando isso é feito, o serviço fica destacado na cor amarela e a visualização é filtrada de acordo com a profundidade especificada no input numérico Depth acima do grafo, em que o usuário pode controlar a profundidade das relações com o serviço selecionado até um certo nível.
 
-A visualização conta ainda com uma lista de métricas daquele sistema. As métricas são divididas em globas (aquelas referentes ao sistema como um todo) e específicas (para um único serviço). As métricas específicas ficam disponíveis abaixo das globais quando o usuário clica em um serviço na visualização.
+A visualização conta ainda com uma lista de métricas daquele sistema. As métricas são divididas em globais (aquelas referentes ao sistema como um todo) e específicas (para um único serviço). As métricas específicas ficam disponíveis abaixo das globais quando o usuário clica em um serviço na visualização.
 
 Existem algumas métricas em que o seu valor são nomes de serviços que ficam destacados como links na visualização. Caso esses links sejam clicados, a visualização dá um zoom no serviço que foi clicado.
 
@@ -73,7 +73,7 @@ Após clicar no botão "Register new system" na página inicial, o usuário é l
 
 No passo (1), é pedido o link de um repositório do github ou gitlab que contém um arquivo docker-compose descrevendo os containers do sistema que representam serviços e bancos de dados. O caminho até esse arquivo docker-compose também é solicitado. Após o usuário clicar em registrar, a plataforma irá identificar quais são os serviços, bancos de dados e usos de bancos de dados por serviços.
 
-No passo (2), a plataforma trás todos os serviços identificados no passo anterior e pede ao usuário que informe os arquivos open-api que descreve a API de cada serviço. O usuário pode informar o caminho para o arquivo open-api de cada serviço ou pode deixar em branco caso não haja. Após clicar em registar, a plataforma identificará as operações de cada serviço.
+No passo (2), a plataforma traz todos os serviços identificados no passo anterior e pede ao usuário que informe os arquivos open-api que descreve a API de cada serviço. O usuário pode informar o caminho para o arquivo open-api de cada serviço ou pode deixar em branco caso não haja. Após clicar em registar, a plataforma identificará as operações de cada serviço.
 
 No passo (3), é possível selecionar um dos serviços e registrar as operações síncronas e assíncronas que esse serviço performa sobre outros. Para as operações síncronas, é necessário selecionar o outro serviço que ele se comunica e também selecionar qual a operação daquele serviço é utilizada. Já para as operações assíncronas, é necessário selecionar o outro serviço que ele se comunica e digitar qual é o nome do tópico acessado. Após terminar de registrar todas as operações e clicar em Finalizar, o usuário é levado a página de visualização do sistema que acabou de cadastrar.
 
