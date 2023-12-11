@@ -5,6 +5,9 @@ import { MultipleSelectBox } from "@components/MultipleSelectBox/MultipleSelectB
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
 import { Button } from "@components/Button";
 import { BoxWrapper } from "./styled";
+import { SystemService } from "@services/system";
+import { isApiError } from "@common/api";
+import { useRouter } from "next/router";
 
 export const RegisterSyncAndAsyncCalls = () => {
   const {
@@ -16,6 +19,14 @@ export const RegisterSyncAndAsyncCalls = () => {
     nextRegistrationStep,
     setServiceToSynAndAsyncOperations,
   } = useSystemRegistrationContext();
+
+  const [loading, setLoading] = useState(false);
+
+  const showMessage = (message: string) => {
+    message !== "" && alert(message);
+  };
+
+  const router = useRouter();
 
   console.log(serviceToSynAndAsyncOperations);
 
@@ -85,6 +96,19 @@ export const RegisterSyncAndAsyncCalls = () => {
     }
   };
 
+  const registerOperations = async () => {
+    const response = await SystemService.registerOperations(
+      name,
+      serviceToSynAndAsyncOperations
+    );
+    if (isApiError(response)) {
+      showMessage(response.error);
+    } else {
+      showMessage("New system has been successfully registered");
+      router.push(`/systems/${name}`);
+    }
+  };
+
   return (
     <div>
       <SelectBox
@@ -108,6 +132,7 @@ export const RegisterSyncAndAsyncCalls = () => {
           }}
         ></MultipleSelectBox>
       </BoxWrapper>
+      <Button onClick={registerOperations}>Finish</Button>
     </div>
   );
 };
