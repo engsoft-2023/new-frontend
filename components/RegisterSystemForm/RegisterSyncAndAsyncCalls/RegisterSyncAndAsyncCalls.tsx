@@ -11,34 +11,102 @@ export const RegisterSyncAndAsyncCalls = () => {
     name,
     repositoryUrl,
     serviceToOpenApiFilename,
+    serviceToSynAndAsyncOperations,
     setServiceToOpenApiFilename,
     nextRegistrationStep,
+    setServiceToSynAndAsyncOperations,
   } = useSystemRegistrationContext();
+
+  console.log(serviceToSynAndAsyncOperations);
 
   const services: string[] = Object.keys(serviceToOpenApiFilename);
 
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedService, setselectedService] = useState<string>(services[0]);
+
   const handleSelectChange = (option: string) => {
-    setSelectedOption(option);
+    setselectedService(option);
+  };
+
+  const currentServiceOperations =
+    serviceToSynAndAsyncOperations[selectedService];
+  const currentServiceSync =
+    currentServiceOperations["synchronous" as keyof {}];
+  const currentServiceAsync =
+    currentServiceOperations["asynchronous" as keyof {}];
+
+  const itemsToMatrix = (operations: {}) => {
+    const items: string[][] = [];
+
+    Object.keys(operations).forEach((serviceName) => {
+      (operations[serviceName as keyof {}] as string[]).forEach((operation) => {
+        items.push([serviceName, operation]);
+      });
+    });
+
+    return items;
+  };
+
+  const itemsToDict = (operations: string[][]) => {
+    const items: { [key: string]: string[] } = {};
+
+    operations.forEach(([serviceName, operation]) => {
+      if (serviceName in items) {
+        items[serviceName].push(operation);
+      } else {
+        items[serviceName] = [operation];
+      }
+    });
+
+    return items;
+  };
+
+  const updateOperations = (
+    items: string[][],
+    operationType: "sync" | "async"
+  ) => {
+    const newItems = itemsToDict(items);
+
+    if (operationType === "sync") {
+      setServiceToSynAndAsyncOperations(selectedService, {
+        synchronous: newItems,
+        asynchronous:
+          serviceToSynAndAsyncOperations[selectedService][
+            "asynchronous" as keyof {}
+          ],
+      });
+    } else {
+      setServiceToSynAndAsyncOperations(selectedService, {
+        synchronous:
+          serviceToSynAndAsyncOperations[selectedService][
+            "synchronous" as keyof {}
+          ],
+        asynchronous: newItems,
+      });
+    }
   };
 
   return (
     <div>
       <SelectBox
         options={services}
+        selectedOption={selectedService}
         onSelectChange={handleSelectChange}
       ></SelectBox>
       <BoxWrapper>
-      <MultipleSelectBox
-        valueType="select"
-        keyOptions={["1", "2"]}
-      ></MultipleSelectBox>
-      <MultipleSelectBox
-        valueType="input"
-        keyOptions={["1", "2"]}
-      ></MultipleSelectBox>
+        <MultipleSelectBox
+          keyOptions={services}
+          items={itemsToMatrix(currentServiceSync)}
+          onItemsChange={(items: string[][]) => {
+            updateOperations(items, "sync");
+          }}
+        ></MultipleSelectBox>
+        <MultipleSelectBox
+          keyOptions={services}
+          items={itemsToMatrix(currentServiceAsync)}
+          onItemsChange={(items: string[][]) => {
+            updateOperations(items, "async");
+          }}
+        ></MultipleSelectBox>
       </BoxWrapper>
     </div>
   );

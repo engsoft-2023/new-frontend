@@ -28,11 +28,9 @@ export const useSystemRegistrationContext = () => {
 
   const setServiceToSynAndAsyncOperations = (
     serviceName: string,
-    openApiFilename: string
+    operations: {}
   ) =>
-    dispatch(
-      setServiceToSyncAndAsyncOperationsAction(serviceName, openApiFilename)
-    );
+    dispatch(setServiceToSyncAndAsyncOperationsAction(serviceName, operations));
 
   const nextRegistrationStep = () => dispatch(nextRegistrationStepAction());
 

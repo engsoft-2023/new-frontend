@@ -13,6 +13,7 @@ export const useRegisterEndpoints = () => {
     serviceToOpenApiFilename,
     setServiceToOpenApiFilename,
     nextRegistrationStep,
+    setServiceToSynAndAsyncOperations,
   } = useSystemRegistrationContext();
 
   const showMessage = (message: string) => {
@@ -39,6 +40,12 @@ export const useRegisterEndpoints = () => {
     if (isApiError(response)) {
       showMessage(response.error);
     } else {
+      Object.keys(serviceToOpenApiFilename).forEach((service: string) => {
+        setServiceToSynAndAsyncOperations(service, {
+          synchronous: {},
+          asynchronous: {},
+        });
+      });
       nextRegistrationStep();
     }
   };
