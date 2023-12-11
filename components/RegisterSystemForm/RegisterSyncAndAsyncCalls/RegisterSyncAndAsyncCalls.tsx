@@ -1,13 +1,13 @@
 import * as React from "react";
-import { ChangeEvent, useState } from "react";
 import { SelectBox } from "@components/SelectBox";
 import { MultipleSelectBox } from "@components/MultipleSelectBox/MultipleSelectBox";
-import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
 import { Button } from "@components/Button";
-import { BoxWrapper } from "./styled";
-import { SystemService } from "@services/system";
-import { isApiError } from "@common/api";
-import { useRouter } from "next/router";
+import {
+  BoxWrapper,
+  Container,
+  FinishButtonWrapper,
+  SelectServiceBox,
+} from "./styled";
 import { useRegisterSyncAndAsyncCalls } from "./hook";
 
 export const RegisterSyncAndAsyncCalls = () => {
@@ -24,29 +24,42 @@ export const RegisterSyncAndAsyncCalls = () => {
   } = useRegisterSyncAndAsyncCalls();
 
   return (
-    <div>
-      <SelectBox
-        options={services}
-        selectedOption={selectedService}
-        onSelectChange={setSelectedService}
-      ></SelectBox>
+    <Container>
+      <SelectServiceBox>
+        Choose a service:
+        <SelectBox
+          options={services}
+          selectedOption={selectedService}
+          onSelectChange={setSelectedService}
+        ></SelectBox>
+      </SelectServiceBox>
       <BoxWrapper>
-        <MultipleSelectBox
-          keyOptions={services}
-          items={itemsToMatrix(currentServiceSync)}
-          onItemsChange={(items: string[][]) => {
-            updateOperations(items, "sync");
-          }}
-        ></MultipleSelectBox>
-        <MultipleSelectBox
-          keyOptions={services}
-          items={itemsToMatrix(currentServiceAsync)}
-          onItemsChange={(items: string[][]) => {
-            updateOperations(items, "async");
-          }}
-        ></MultipleSelectBox>
+        <div>
+          Sync communications:
+          <MultipleSelectBox
+            keyOptions={services}
+            items={itemsToMatrix(currentServiceSync)}
+            onItemsChange={(items: string[][]) => {
+              updateOperations(items, "sync");
+            }}
+          ></MultipleSelectBox>
+        </div>
+        <div>
+          Async communications:
+          <MultipleSelectBox
+            keyOptions={services}
+            items={itemsToMatrix(currentServiceAsync)}
+            onItemsChange={(items: string[][]) => {
+              updateOperations(items, "async");
+            }}
+          ></MultipleSelectBox>
+        </div>
       </BoxWrapper>
-      <Button loading={loading} onClick={registerOperations}>Finish</Button>
-    </div>
+      <FinishButtonWrapper>
+        <Button loading={loading} onClick={registerOperations}>
+          Finish
+        </Button>
+      </FinishButtonWrapper>
+    </Container>
   );
 };

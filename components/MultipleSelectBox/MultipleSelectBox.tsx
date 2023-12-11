@@ -1,7 +1,7 @@
 import { SelectBox } from "@components/SelectBox";
 import { Button } from "@components/Button";
 import { useState } from "react";
-import { InputBox, SelectBoxWrapper } from "./styled";
+import { AddButtonWrapper, InputBox, SelectBoxWrapper } from "./styled";
 
 interface MultipleSelectBoxProps {
   keyOptions: string[];
@@ -29,7 +29,7 @@ export const MultipleSelectBox = ({
   return (
     <div>
       {items.map(([key, value], index) => (
-        <SelectBoxWrapper key={key+value+index}>
+        <SelectBoxWrapper key={key + value + index}>
           <SelectBox
             options={keyOptions}
             selectedOption={key}
@@ -46,7 +46,9 @@ export const MultipleSelectBox = ({
           ></InputBox>
         </SelectBoxWrapper>
       ))}
-      <Button onClick={addNewItem}>Add</Button>
+      <AddButtonWrapper>
+        <Button onClick={addNewItem}>Add</Button>
+      </AddButtonWrapper>
     </div>
   );
 };

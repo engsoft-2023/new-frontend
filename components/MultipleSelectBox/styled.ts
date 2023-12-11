@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const InputBox = styled.input`
-  padding: 0.75rem;
   width: 100%;
   background-color: #dedede;
   border: none;
@@ -15,4 +14,10 @@ export const SelectBoxWrapper = styled.div`
   column-gap: 1rem;
   text-align: center;
   width: 100%;
+`;
+
+export const AddButtonWrapper = styled.div`
+  width: 10%;
+  display: flex;
+  align-self: flex-end;
 `;
