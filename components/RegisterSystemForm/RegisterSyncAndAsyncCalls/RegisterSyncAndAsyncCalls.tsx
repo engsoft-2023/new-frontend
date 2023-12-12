@@ -35,9 +35,11 @@ export const RegisterSyncAndAsyncCalls = () => {
       </SelectServiceBox>
       <BoxWrapper>
         <div>
-          Sync communications:
+          <h3>Sync communications:</h3>
           <MultipleSelectBox
             keyOptions={services}
+            placeholder="Ex: GET /orders/{orderId}"
+            buttonText="Add new sync"
             items={itemsToMatrix(currentServiceSync)}
             onItemsChange={(items: string[][]) => {
               updateOperations(items, "sync");
@@ -45,9 +47,11 @@ export const RegisterSyncAndAsyncCalls = () => {
           ></MultipleSelectBox>
         </div>
         <div>
-          Async communications:
+          <h3>Async communications:</h3>
           <MultipleSelectBox
             keyOptions={services}
+            placeholder="Ex: ORDER_CREATED"
+            buttonText="Add new async"
             items={itemsToMatrix(currentServiceAsync)}
             onItemsChange={(items: string[][]) => {
               updateOperations(items, "async");

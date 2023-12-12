@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BoxWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 1rem;
+  column-gap: 8rem;
   margin: 2rem 0;
 `;
 
@@ -14,14 +14,18 @@ export const Container = styled.div`
 `;
 
 export const SelectServiceBox = styled.div`
-  width: 30%;
   display: flex;
   align-items: center;
-  margin: 0 auto;
+  align-self: center;
+
+  & > :first-child {
+    margin-left: 1rem;
+  }
 `;
 
 export const FinishButtonWrapper = styled.div`
   width: 10%;
   display: flex;
   align-self: center;
+  margin-top: 2rem;
 `;
