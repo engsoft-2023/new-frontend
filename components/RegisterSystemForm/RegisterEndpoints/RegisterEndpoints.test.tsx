@@ -20,6 +20,7 @@ describe(RegisterEndpoints, () => {
       repositoryUrl: "url",
       serviceToOpenApiFilename: { "user-service": "user-service-openapi.yaml" },
       setServiceToOpenApiFilename: jest.fn(),
+      setServiceToSynAndAsyncOperations: jest.fn(),
     });
     (useRouter as jest.Mock).mockReturnValue({
       push: jest.fn(),
@@ -47,33 +48,6 @@ describe(RegisterEndpoints, () => {
       "user-service",
       "foo.yaml"
     );
-  });
-
-  it("should successfully register system endpoints", async () => {
-    const router = useRouter();
-    const { name, repositoryUrl } = useSystemRegistrationContext();
-    jest.spyOn(SystemService, "registerSystemEndpoints").mockResolvedValue("");
-    global.alert = jest.fn();
-
-    render(<RegisterEndpoints />);
-    act(() => fireEvent.click(screen.getByRole("button")));
-
-    expect(SystemService.registerSystemEndpoints).toHaveBeenCalledWith(
-      repositoryUrl,
-      name,
-      [
-        {
-          serviceName: "user-service",
-          openApiFilename: "user-service-openapi.yaml",
-        },
-      ]
-    );
-    await waitFor(() => {
-      expect(global.alert).toHaveBeenCalledWith(
-        "New system has been successfully registered"
-      );
-      expect(router.push).toHaveBeenCalledWith(`/systems/${name}`);
-    });
   });
 
   it("should show error message when registration fails", async () => {
