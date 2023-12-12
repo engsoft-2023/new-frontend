@@ -13,6 +13,7 @@ const initialState: SystemState = {
   repositoryUrl: "",
   dockerComposeFilename: "",
   serviceToOpenApiFilename: {},
+  serviceToSynAndAsyncOperations: {},
   registrationStep: 0,
 };
 

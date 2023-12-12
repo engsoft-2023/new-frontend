@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SystemService } from "@services/system";
 import { useRouter } from "next/router";
 import { useSystemRegistrationContext } from "@contexts/SystemRegistrationContext";
-import { isApiError } from "@common/api";
+import { ApiError, isApiError } from "@common/api";
 
 export const useRegisterEndpoints = () => {
   const router = useRouter();
@@ -12,6 +12,8 @@ export const useRegisterEndpoints = () => {
     repositoryUrl,
     serviceToOpenApiFilename,
     setServiceToOpenApiFilename,
+    nextRegistrationStep,
+    setServiceToSynAndAsyncOperations,
   } = useSystemRegistrationContext();
 
   const showMessage = (message: string) => {
@@ -36,10 +38,15 @@ export const useRegisterEndpoints = () => {
     setLoading(false);
 
     if (isApiError(response)) {
-      showMessage(response.error);
+      showMessage((response as ApiError).error);
     } else {
-      showMessage("New system has been successfully registered");
-      router.push(`/systems/${name}`);
+      Object.keys(serviceToOpenApiFilename).forEach((service: string) => {
+        setServiceToSynAndAsyncOperations(service, {
+          synchronous: {},
+          asynchronous: {},
+        });
+      });
+      nextRegistrationStep();
     }
   };
 

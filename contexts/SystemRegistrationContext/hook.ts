@@ -5,6 +5,7 @@ import {
   setDockerComposeFilenameAction,
   setRepositoryUrlAction,
   setServiceToOpenApiFilenameAction,
+  setServiceToSyncAndAsyncOperationsAction,
   setSystemNameAction,
 } from "./action";
 
@@ -25,6 +26,12 @@ export const useSystemRegistrationContext = () => {
   ) =>
     dispatch(setServiceToOpenApiFilenameAction(serviceName, openApiFilename));
 
+  const setServiceToSynAndAsyncOperations = (
+    serviceName: string,
+    operations: {}
+  ) =>
+    dispatch(setServiceToSyncAndAsyncOperationsAction(serviceName, operations));
+
   const nextRegistrationStep = () => dispatch(nextRegistrationStepAction());
 
   return {
@@ -33,6 +40,7 @@ export const useSystemRegistrationContext = () => {
     setRepositoryUrl,
     setDockerComposeFilename,
     setServiceToOpenApiFilename,
+    setServiceToSynAndAsyncOperations,
     nextRegistrationStep,
   };
 };

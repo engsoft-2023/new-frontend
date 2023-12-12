@@ -33,6 +33,14 @@ export const registerSystemReducer = (
         ...state,
         registrationStep: state.registrationStep + 1,
       };
+    case SystemActions.SET_SERVICE_TO_SYNC_AND_ASYNC_OPERATIONS:
+      return {
+        ...state,
+        serviceToSynAndAsyncOperations: {
+          ...state.serviceToSynAndAsyncOperations,
+          [payload.serviceName]: payload.syncAndAsyncOperations,
+        },
+      };
     default:
       throw new Error("type invalid");
   }

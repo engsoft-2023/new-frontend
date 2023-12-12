@@ -39,6 +39,17 @@ export class SystemService {
     );
   }
 
+  public static async registerOperations(
+    systemName: string,
+    operations: any
+  ) {
+    return this.handleRequest<string>(() =>
+      api.put(`/systems/${systemName}/syncAndAsync`, {
+        operations
+      })
+    );
+  }
+
   private static async handleRequest<T>(
     requestFunction: () => Promise<AxiosResponse<T | ApiError>>
   ): Promise<T | ApiError> {
